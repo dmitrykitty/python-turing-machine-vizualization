@@ -58,10 +58,10 @@ class Model:
     step_interval_in_sec: float
 
     def __init__(
-        self,
-        machine: Machine,
-        machine_input: list[Symbol],
-        step_interval_in_sec: float,
+            self,
+            machine: Machine,
+            machine_input: list[Symbol],
+            step_interval_in_sec: float,
     ) -> None:
         """
         Initializes the model with the simulation parameters.
@@ -139,20 +139,27 @@ class Model:
     # tip. - read documentation: https://docs.python.org/3/library/functions.html#property
     #        to learn about the setter
     #      - the docstrings are there already
-    """
-    What is the current symbol observed by the TM's head
+    @property
+    def current_symbol(self) -> Symbol:
+        """
+            What is the current symbol observed by the TM's head
 
-    Returns
-    -------
-    symbol: Symbol
-        a symbol object taken from the tape at the current position
-    """
+            Returns
+            -------
+            symbol: Symbol
+                a symbol object taken from the tape at the current position
+        """
+        return self.tape[self.head_offset]
 
-    """
-    Writes a symbol on the tape below the TM's head.
+    @current_symbol.setter
+    def current_symbol(self, symbol: Symbol) -> None:
 
-    Parameters
-    ----------
-    symbol: Symbol
-        a symbol object to be written on the tape
-    """
+        """
+        Writes a symbol on the tape below the TM's head.
+
+        Parameters
+        ----------
+        symbol: Symbol
+            a symbol object to be written on the tape
+        """
+        self.tape[self.head_offset] = symbol
